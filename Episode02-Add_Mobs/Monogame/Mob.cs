@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -14,13 +14,15 @@ namespace Shmup
         private RectangleF Rectangle;
         private float SpeedY;
         private float SpeedX;
+        private Color Colour;
         private Random random;
         #endregion
         #region Constructor
-        public Mob(GraphicsDevice graphicsDevice, int width, int height)
+        public Mob(int width, int height, Color colour)
         {
             random = new Random();
             Rectangle = new RectangleF(0, 0, width, height);
+            Colour = colour;
             SetProperties();
         }
         #endregion
@@ -34,7 +36,7 @@ namespace Shmup
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.FillRectangle( rectangle: Rectangle, color: Color.Red);
+            spriteBatch.FillRectangle( rectangle: Rectangle, color: Colour);
         }
         private void SetProperties()
         {
