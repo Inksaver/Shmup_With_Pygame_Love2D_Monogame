@@ -1,7 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 
 namespace Shmup
 {
@@ -23,9 +22,22 @@ namespace Shmup
             IsMouseVisible = true;
         }
         #endregion
+        #region Custom methods
+        private KeyboardState ProcessEvents(out bool quit)
+        {
+            /// This function returns the keyboard state directly
+            /// The calling code has access to the quit variable in any following code
+            /// Similar to Lua,Python: keyboardState, quit = ProcessEvents()
+            quit = false;
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                quit = true;
+            return Keyboard.GetState();
+        }
+        #endregion
         #region Inherited Methods
         protected override void Initialize()
         {
+            /// set the window width and height to values hard-coded in Shared.cs
             graphics.PreferredBackBufferWidth = Shared.WIDTH;
             graphics.PreferredBackBufferHeight = Shared.HEIGHT;
             graphics.ApplyChanges();
@@ -35,7 +47,7 @@ namespace Shmup
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Player.CreatePlayer();
+            Player.CreatePlayer(w:40, h:50, speed:700f, colour:Shared.GREEN);
             Shared.gameState = Shared.gameStates["play"];
         }
         protected override void Update(GameTime gameTime)
@@ -54,18 +66,6 @@ namespace Shmup
             Player.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
-        }
-        #endregion
-        #region Custom methods
-        private KeyboardState ProcessEvents(out bool quit)
-        {
-            /// This function returns the keyboard state directly
-            /// The calling code has access to the quit variable in any following code
-            /// Similar to Lua,Python: keyboardState, quit = ProcessEvents()
-            quit = false;
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                quit = true;
-            return Keyboard.GetState();
         }
         #endregion
     }
