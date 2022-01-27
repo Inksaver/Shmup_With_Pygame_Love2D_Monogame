@@ -11,7 +11,7 @@ function Player.setProperties(width, height, speed)
 	Player.rect.h = height
 end
 
-function Player.update(dt, keyboard)
+function Player.update(keyboard, dt)
 	if keyboard.isDown("left") or keyboard.isDown("a") then	
 		Player.rect.x = Player.rect.x - Player.speed * dt	-- move Player left
 	end
@@ -31,4 +31,4 @@ function Player.draw()
 	love.graphics.rectangle("fill", Player.rect.x, Player.rect.y, Player.rect.w, Player.rect.h)
 end
 
-return Player    
+return Player
