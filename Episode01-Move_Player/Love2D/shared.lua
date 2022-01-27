@@ -9,12 +9,12 @@ S.RED 			  = {1, 0, 0}
 S.GREEN 		  = {0, 1, 0}
 S.BLUE 			  = {0 ,0, 1}
 S.CYAN 			  = {0, 1, 1}
-S.MAGENTA 		= {1, 0, 1}
+S.MAGENTA 		 = {1, 0, 1}
 S.YELLOW 		  = {1 ,1, 0}
-S.DARKBLUE		= {0, 0, 12/255}
+S.DARKBLUE		 = {0, 0, 12/255}
 -- variables
 S.debug			  = false
-S.gamestates	= {menu = 1, play = 2, leaderboard = 3, quit = 4}
+S.gamestates	  = {menu = 1, play = 2, leaderboard = 3, quit = 4}
 S.gamestate		= 1
 
 return S
