@@ -40,7 +40,7 @@ function love.load()
 		table.insert(mobList, Mob(30,40)) -- This one-liner creates a new Mob object and adds it to the mobList
 	end
 	Shared.gamestate = Shared.gamestates['play']
-	--Shared.debug = false --no effect until episode 4
+	Shared.debug = true --no effect until episode 4
 end
 
 function love.update(dt)
