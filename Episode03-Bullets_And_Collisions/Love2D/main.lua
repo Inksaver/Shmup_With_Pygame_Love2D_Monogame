@@ -52,7 +52,9 @@ local function checkMobPlayerCollisions(keyboardState, dt)
 	for i = #mobList, 1, -1 do							-- Go through the mobList
 		mobList[i]:update(dt)
 		if Player.rect:intersects(mobList[i]:getRect()) then
-			Shared.gamestate = Shared.gamestates['quit']
+			if not Shared.debug then
+				Shared.gamestate = Shared.gamestates['quit']
+			end
 		end
 	end
 end
@@ -81,7 +83,7 @@ function love.load( )
 	end
 	Bullet 	= require "bullet"				-- import the Bullet class
 	Shared.gamestate = Shared.gamestates['play']
-	--Shared.debug = false --no effect until episode 4
+	Shared.debug = true
 end
 
 function love.update(dt)
