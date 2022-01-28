@@ -17,7 +17,7 @@ function Mob.setProperties(self)
 	self.speedX = math.random(-100, 100)
 	if Shared.debug then 											-- reduce the speed
 		self.speedY = math.random(10, 100)
-		self.speedX = math.random(-20, 20)
+		self.speedX = math.random(-10, 10)
 	end
 end
 
