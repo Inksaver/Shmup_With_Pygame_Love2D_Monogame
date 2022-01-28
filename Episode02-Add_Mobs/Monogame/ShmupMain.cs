@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -35,6 +35,15 @@ namespace Shmup
                 quit = true;
             return Keyboard.GetState();
         }
+        private void CheckMobPlayerCollisions(KeyboardState keyboardState, float dt)
+        {
+            /// Update player and all mobs.
+            Player.Update(keyboardState, dt);
+            for (int i = Mobs.Count - 1; i >= 0; i--)
+            {
+                Mobs[i].Update(dt);
+            }
+        }
         #endregion
         #region Inherited Procedures
         protected override void Initialize()
@@ -55,21 +64,17 @@ namespace Shmup
             {
                 Mobs.Add(new Mob(30, 40, Color.Red));
             }
-            Shared.gameState = Shared.gameStates["play"];
+            Shared.GameState = Shared.GameStates["play"];
         }
         protected override void Update(GameTime gameTime)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             KeyboardState keyboardState = ProcessEvents(out bool quit); // gets bool value for quit as well 
-            if (quit || Shared.gameState == Shared.gameStates["quit"])
+            if (quit || Shared.GameState == Shared.GameStates["quit"])
                 Exit();
-            else if (Shared.gameState == Shared.gameStates["play"])
+            else if (Shared.GameState == Shared.GameStates["play"])
             {
-                Player.Update(dt, Keyboard.GetState());
-                for (int i = Mobs.Count - 1; i >= 0; i--)
-                {
-                    Mobs[i].Update(dt);
-                }
+                CheckMobPlayerCollisions(keyboardState, dt); // update player and mobs
             }
             base.Update(gameTime);
         }
