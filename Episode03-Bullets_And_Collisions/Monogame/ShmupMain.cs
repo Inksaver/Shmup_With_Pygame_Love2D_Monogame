@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -70,7 +70,8 @@ namespace Shmup
             {
                 Mobs[i].Update(dt);
                 if (Mobs[i].Rectangle.Intersects(Player.Rectangle))
-                    Shared.GameState = Shared.GameStates["quit"];
+                    if(!Shared.Debug)
+                        Shared.GameState = Shared.GameStates["quit"];
             }
         }
         public void Shoot()
@@ -103,6 +104,7 @@ namespace Shmup
             {
                 Mobs.Add(new Mob(30, 40, Color.Red));
             }
+            Shared.Debug = true;
             Shared.GameState = Shared.GameStates["play"];
         }
         protected override void Update(GameTime gameTime)
@@ -119,10 +121,10 @@ namespace Shmup
                 Exit();
             else if (Shared.GameState == Shared.GameStates["play"])
             {
-                CheckMobPlayerCollisions(keyboardState, dt);
-                CheckMobBulletCollisions(dt);
                 if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.Space))
                     Shoot();
+                CheckMobPlayerCollisions(keyboardState, dt);
+                CheckMobBulletCollisions(dt); 
             }
             base.Update(gameTime);
         }
