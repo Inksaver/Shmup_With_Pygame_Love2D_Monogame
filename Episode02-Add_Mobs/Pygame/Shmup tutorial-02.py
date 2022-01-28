@@ -1,4 +1,8 @@
 # https://www.youtube.com/watch?v=-5GNbL33hz0
+'''
+Only 1 player so use code module (static class) for player
+and a separate shared code module for global variables
+'''
 # import libraries
 import pygame, os
 import shared, player, mob
@@ -19,7 +23,13 @@ def process_events() -> (object, object, bool):
 	if keystate[pygame.K_ESCAPE]:					# player pressing escape continuously
 		quit = True
 
-	return keystate, key_down, quit					# usage: if key_down == pygame.K_RETURN:, if keystate[pygame.K_UP]:
+	return keystate, key_down, quit					# usage: if key_down == pygame.K_RETURN:
+
+def check_mob_player_collisions(keystate:object, dt:float) -> None:
+	''' update player and all mobs '''
+	player.update(keystate, dt)
+	for mob in mobs:
+		mob.update(dt)
 
 def load() -> None:
 	''' Setup pygame and load all assets '''
@@ -36,7 +46,7 @@ def load() -> None:
 
 	player.init(40, 50, 500, shared.GREEN)				# create a player (50x40 green rectangle)
 
-	for i in range(8):									# make 8 mobs
+	for i in range(80):									# make 8 mobs
 		mobs.append(mob.Mob(30, 40, shared.RED))
 
 def update() -> None:
@@ -51,9 +61,7 @@ def update() -> None:
 		shared.gamestate = shared.gamestates["quit"]		# set gamestate to quit
 	else:
 		if shared.gamestate == shared.gamestates["play"]:
-			player.update(keystate, dt)
-			for mob in mobs:
-				mob.update(dt)
+			check_mob_player_collisions(keystate, dt)		# update player and mobs
 
 def draw() -> None:
 	''' Draw background and all active sprites '''
