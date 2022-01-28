@@ -13,8 +13,8 @@ class Mob():
 		# start off the top of the screen by random amount
 		self.rect.y = random.randrange(-150, -100)
 		# set speed to a random amount, so some will move faster than others
-		self.speedy = random.randrange(50, 600)
-		self.speedx = random.randrange(-200, 200)		
+		self.speedy = random.randrange(50, 300)
+		self.speedx = random.randrange(-100, 100)		
 			
 	def update(self, dt:float) -> None:
 		self.rect.y	+= round(self.speedy * dt)
