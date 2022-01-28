@@ -3,18 +3,13 @@ local Bullet = Class:derive("Bullet")
 local Rectangle = require "lib.Rectangle"
 local Shared = require "shared"
 
-function Bullet:new(Player, width, height, position)
+function Bullet:new(Player, width, height)
 	--[[ class constructor, takes Player object, and rectangle width, height ]]
 	self.speedY = 1000
 	if Shared.debug then
 		self.speedY = 400
 	end
 	local posX = Player.rect.x + Player.rect.w / 2 - width / 2
-	if position == 'left' then
-		posX = Player.rect.left
-	elseif position == 'right' then
-		posX = Player.rect.right - width
-	end
 	self.active = true
 	-- rectangle collider
 	self.rect = Rectangle(posX,
