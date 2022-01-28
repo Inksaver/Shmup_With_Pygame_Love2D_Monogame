@@ -44,7 +44,7 @@ def process_events() -> (object, object, bool):
 
 	return keystate, key_down, quit					# usage: if key_down == pygame.K_RETURN:
 
-def check_mob_bullet_collisions() -> None:
+def check_mob_bullet_collisions(dt) -> None:
 	''' check if any bullets are colliding with any Mobs '''
 	for i in range(len(bullets) -1, -1, -1):
 		destroy = False
@@ -59,6 +59,10 @@ def check_mob_bullet_collisions() -> None:
 				mobs[j].reset()
 				if len(bullets) == 0:
 					break
+	''' update bullets '''
+	for i in range(len(bullets) - 1, -1, -1):
+		if not bullets[i].update(dt):
+			bullets.pop()		
 
 def check_mob_player_collisions(keystate:object, dt:float) -> None:
 	''' check if mob hit player '''
@@ -67,7 +71,8 @@ def check_mob_player_collisions(keystate:object, dt:float) -> None:
 		mob.update(dt)
 		''' check if any mobs colliding with Player '''
 		if collides(mob.get_rect(), player.rect):
-			shared.gamestate = shared.gamestates['quit']
+			if not shared.debug:
+				shared.gamestate = shared.gamestates['quit']
 
 def shoot() -> None:
 	''' fire bullet if enough time has passed '''
@@ -76,12 +81,6 @@ def shoot() -> None:
 		bullets.append(newBullet)
 		data.new_bullet_timer = 0
 		data.allow_new_bullet = False
-
-def update_bullets(dt:float) -> None:
-	''' update bullets '''
-	for i in range(len(bullets) - 1, -1, -1):
-		if not bullets[i].update(dt):
-			bullets.pop()
 
 def load() -> None:
 	''' Setup pygame and load all assets '''
@@ -100,6 +99,7 @@ def load() -> None:
 
 	for i in range(8):									# make 8 mobs
 		mobs.append(mob.Mob(30, 40, shared.RED))
+	shared.debug = True
 
 def update() -> None:
 	'''
@@ -119,13 +119,10 @@ def update() -> None:
 		shared.gamestate = shared.gamestates["quit"]		# set gamestate to quit
 	else:
 		if shared.gamestate == shared.gamestates["play"]:
-			check_mob_player_collisions(keystate, dt)
-			update_bullets(dt)							
-		
 			if key_down == pygame.K_SPACE or keystate[pygame.K_SPACE]:
 				shoot()
-		
-			check_mob_bullet_collisions()	
+			check_mob_player_collisions(keystate, dt)
+			check_mob_bullet_collisions(dt)	
 
 def draw() -> None:
 	''' Draw background and all active sprites '''
