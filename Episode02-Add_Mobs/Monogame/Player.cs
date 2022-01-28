@@ -10,9 +10,9 @@ namespace Shmup
         /// <summary>
         /// Static class for Player as there is only 1
         /// </summary>
+		public static RectangleF Rectangle;
         #region Private class variables
         private static float Speed;
-        private static RectangleF Rectangle;
         private static Color Colour;
         #endregion
         #region Public Methods
@@ -27,7 +27,7 @@ namespace Shmup
 			Speed = speed;
             Colour = colour;
         }
-        public static void Update(float dt, KeyboardState keyboardState)
+        public static void Update(KeyboardState keyboardState, float dt)
         {
             if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))  // check for left arrow or 'A'
             {
