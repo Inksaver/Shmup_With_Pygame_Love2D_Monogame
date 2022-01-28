@@ -14,7 +14,10 @@ class Mob():
 		self.rect.y = random.randrange(-150, -100)
 		# set speed to a random amount, so some will move faster than others
 		self.speedy = random.randrange(50, 400)
-		self.speedx = random.randrange(-200, 200)		
+		self.speedx = random.randrange(-200, 200)
+		if shared.debug:
+			self.speedy = random.randrange(10, 100)
+			self.speedx = random.randrange(-20, 20)		
 		
 	def get_rect(self):
 		return self.rect		
