@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -17,7 +17,7 @@ namespace Shmup
         private float speedY;
         #endregion
         #region Constructor
-        public Bullet(GraphicsDevice graphicsDevice, Texture2D bulletimg, float speed)
+        public Bullet(Texture2D bulletimg, float speed)
         {
             bulletImg = bulletimg;
             Rectangle = new RectangleF
