@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -77,7 +77,8 @@ namespace Shmup
             {
                 Mobs[i].Update(dt);
                 if (Mobs[i].Rectangle.Intersects(Player.Rectangle))
-                    Shared.GameState = Shared.GameStates["quit"];
+                    if(!Shared.Debug)
+                        Shared.GameState = Shared.GameStates["quit"];
             }
         }
         public void Shoot()
@@ -120,7 +121,7 @@ namespace Shmup
                 Mobs.Add(new Mob(GraphicsDevice, meteorImg));
             }
             Shared.GameState = Shared.GameStates["play"];
-            Shared.Debug = false;
+            Shared.Debug = true;
         }
         protected override void Update(GameTime gameTime)
         {
@@ -146,8 +147,6 @@ namespace Shmup
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
             spriteBatch.Begin();
             spriteBatch.Draw(bgImg, new Vector2(0, 0), Color.White);
             if (Shared.GameState == Shared.GameStates["play"])
