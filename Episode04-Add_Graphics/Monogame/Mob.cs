@@ -1,64 +1,54 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 
 namespace Shmup
 {
-    internal static class Player
+    internal class Mob
     {
         /// <summary>
-        /// Static class for Player as there is only 1
+        /// Mob class for generating meteors from top of window
         /// </summary>
         #region Class variables
-        public static RectangleF Rectangle;
-        private static float speed = 10;
-        private static Texture2D playerImg;
-        private static float scale = 0f;
+        public RectangleF Rectangle;
+        private Texture2D meteorImg;
+        private float speedY;
+        private float speedX;
+        private Random random;
         #endregion
-        #region Public Methods
-        public static void CreatePlayer(Texture2D playerimg, float scl, float spd)
+        #region Constructor
+        public Mob(Texture2D img)
         {
-            playerImg = playerimg;
-            scale = scl;
-            speed = spd;
-            Rectangle = new RectangleF
-            (
-                Shared.WIDTH / 2 - (playerImg.Width / 2),
-                Shared.HEIGHT - playerImg.Height * scale - 10,
-                playerImg.Width * scale,
-                playerImg.Height * scale
-            );
+            random = new Random();
+            meteorImg = img;
+            Rectangle = new RectangleF(0, 0, img.Width, img.Height);
+            SetProperties();
         }
-        public static void Update(KeyboardState keyboardState, float dt)
+        #endregion
+        #region Class Methods
+        public void SetProperties()
         {
-            if(keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+            Rectangle.X = random.Next(0, Shared.WIDTH - (int)Rectangle.Width);
+            Rectangle.Y = random.Next(-150, -50);
+            speedY = random.Next(50, 300);
+            speedX = random.Next(-50, 50);
+            if (Shared.Debug)
             {
-                Rectangle.X -= speed * dt;
-                if (Rectangle.X < 0)
-                    Rectangle.X = 0;
-            }
-            else if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
-            {
-                Rectangle.X += speed * dt;
-                if (Rectangle.X > Shared.WIDTH - Rectangle.Width)
-                    Rectangle.X = Shared.WIDTH - Rectangle.Width;
+                speedY = random.Next(10, 100);
+                speedX = random.Next(-20, 20);
             }
         }
-        public static void Draw(SpriteBatch spriteBatch)
+        public void Update(float dt)
         {
-            spriteBatch.Draw
-            (
-                texture:playerImg,
-                position:Rectangle.Position,
-                sourceRectangle:null,
-                color:Color.White,
-                rotation:0.0f,
-                origin:Vector2.Zero,
-                scale:scale,
-                effects:SpriteEffects.None,
-                layerDepth:0f
-            );
+            Rectangle.X += speedX * dt;
+            Rectangle.Y += speedY * dt;
+            if (Rectangle.Y > Shared.HEIGHT || Rectangle.X < 0 - Rectangle.Width || Rectangle.X > Shared.WIDTH)
+                SetProperties();
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(meteorImg, Rectangle.Position, Color.White);
             if(Shared.Debug)
                 spriteBatch.DrawRectangle(Rectangle, Color.Blue); //debug check image position
         }
