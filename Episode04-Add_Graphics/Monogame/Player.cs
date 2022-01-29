@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
@@ -10,10 +10,8 @@ namespace Shmup
         /// <summary>
         /// Static class for Player as there is only 1
         /// </summary>
-
         #region Class variables
         public static RectangleF Rectangle;
-        private static float radius = 0f;
         private static float speed = 10;
         private static Texture2D playerImg;
         private static float scale = 0f;
