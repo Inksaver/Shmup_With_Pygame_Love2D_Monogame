@@ -86,7 +86,7 @@ namespace Shmup
             /// fire bullet if enough time has passed
             if (allowNewBullet)
             {
-                Bullets.Add(new Bullet(graphicsDevice, bulletImg, 1000));
+                Bullets.Add(new Bullet(bulletImg, 1000));
                 allowNewBullet = false; // prevent new bullets being made
                 newBulletTimer = 0;     // reset newBulletTimer to 0
             }
@@ -118,7 +118,7 @@ namespace Shmup
             Player.CreatePlayer(playerimg:playerImg, scl:0.5f, spd:300f);
             for(int i = 0; i < 8; i++)
             {
-                Mobs.Add(new Mob(GraphicsDevice, meteorImg));
+                Mobs.Add(new Mob(meteorImg));
             }
             Shared.GameState = Shared.GameStates["play"];
             Shared.Debug = true;
