@@ -6,7 +6,7 @@ Space background image: http://imgur.com/bHiPMju
 Create a folder called 'img' in your project(s) to store the images
 
 From the Kenney Space shooter you will need:
-- laseRed16.png
+- laserRed16.png
 - meteorBrown_med1.png
 - playerShip1_orange.png
 
