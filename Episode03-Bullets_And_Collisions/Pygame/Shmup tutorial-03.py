@@ -137,7 +137,6 @@ def draw() -> None:
 	pygame.display.flip()	
 
 def main() -> None:
-	global allow_new_bullet
 	''' Run game loop and call other functions from here '''
 	shared.WIDTH = 480									# default screen width: alter as required
 	shared.HEIGHT = 600									# default screen height: alter as required
