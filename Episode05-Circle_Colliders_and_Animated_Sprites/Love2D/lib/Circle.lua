@@ -1,6 +1,5 @@
 local Class = require("lib.Class")
 local Circle = Class:derive("Circle")
-local Circle = Class:derive("Circle")
 
 --[[
 	This class creates a circle from a given x, y, radius
