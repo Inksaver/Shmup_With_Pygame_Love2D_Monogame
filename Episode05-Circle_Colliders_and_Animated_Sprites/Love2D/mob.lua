@@ -18,6 +18,23 @@ local function rotatingRectangle( mode, x, y, w, h, a, ox, oy )
 	love.graphics.pop()
 end
 
+function Mob.GetRotatedVertices(self)
+	local r = math.sqrt(self.rect.w * self.rect.w / 4 + self.rect.h * self.rect.h / 4);
+	local thetas = {}
+	table.insert(thetas, math.atan((self.rect.h / 2) / (self.rect.w / 2)))
+	table.insert(thetas, thetas[1] * -1 + self.rotation )
+	table.insert(thetas, thetas[1] - math.pi + self.rotation)
+	table.insert(thetas, math.pi - thetas[1] + self.rotation)
+	thetas[1] = thetas[1] + self.rotation
+	
+	local vertices = {}
+	for _,theta in pairs(thetas) do
+		table.insert(vertices, math.cos(theta) * r + self.rect.centre.x)
+		table.insert(vertices, math.sin(theta) * r + self.rect.centre.y)
+	end
+	return vertices	
+end
+
 function Mob:new(sprite)
 	--[[ class constructor now takes a sprite parameter]]
 	self.sprite = sprite
@@ -81,8 +98,9 @@ function Mob:draw()
 	love.graphics.circle('line', self.circle.x, self.circle.y, self.circle.radius)
 
 	love.graphics.setColor(Shared.GREEN)
-	--[[ draw rotating rectangle ]]
-	rotatingRectangle('line', self.rect.centre.x, self.rect.centre.y, self.rect.w, self.rect.h, self.rotation, self.ox, self.oy )
+	--[[ draw rotating rectangle 2 methods to choose from]]
+	--rotatingRectangle('line', self.rect.centre.x, self.rect.centre.y, self.rect.w, self.rect.h, self.rotation, self.ox, self.oy )
+	love.graphics.polygon('line', self:GetRotatedVertices())
 	
 	love.graphics.setColor(Shared.BLUE)
 	--[[ draw rectangle collider ]]
