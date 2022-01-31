@@ -58,86 +58,6 @@ class Mob():
 			self.rect.center = old_centre
 			self.circle.center = self.rect.center
 			
-	def get_rotated_rect_1(self, w, h, angle):
-		from math import degrees, radians, sin, cos, atan, sqrt
-		r = sqrt(w*w/4 + h*h/4)
-	
-		theta1 = degrees(atan((h/2) / (w/2)))
-		theta2 = -theta1
-		theta3 = theta1 - 180
-		theta4 = 180 - theta1
-	
-		theta1 += angle
-		theta2 += angle
-		theta3 += angle
-		theta4 += angle
-	
-		x1 = cos(radians(theta1)) * r
-		y1 = sin(radians(theta1)) * r
-		x2 = cos(radians(theta2)) * r
-		y2 = sin(radians(theta2)) * r
-		x3 = cos(radians(theta3)) * r
-		y3 = sin(radians(theta3)) * r
-		x4 = cos(radians(theta4)) * r
-		y4 = sin(radians(theta4)) * r
-		
-		return [(x1,y1),(x2,y2),(x3,y3),(x4,y4)]
-	
-	def get_rotated_rect_2(self, rect, angle):
-		from math import degrees, radians, sin, cos, atan, sqrt
-		w = rect.width
-		h = rect.height
-		r = sqrt(w*w/4 + h*h/4)
-
-		theta1 = degrees(atan((h/2) / (w/2)))
-		theta2 = -theta1
-		theta3 = theta1 - 180
-		theta4 = 180 - theta1
-
-		theta1 += angle
-		theta2 += angle
-		theta3 += angle
-		theta4 += angle
-
-		x1 = cos(radians(theta1)) * r + rect.centerx
-		y1 = sin(radians(theta1)) * r + rect.centery
-		x2 = cos(radians(theta2)) * r + rect.centerx
-		y2 = sin(radians(theta2)) * r + rect.centery
-		x3 = cos(radians(theta3)) * r + rect.centerx
-		y3 = sin(radians(theta3)) * r + rect.centery
-		x4 = cos(radians(theta4)) * r + rect.centerx
-		y4 = sin(radians(theta4)) * r + rect.centery
-
-		return [(x1,y1),(x2,y2),(x3,y3),(x4,y4)]	
-		
-	def get_rotated_rect_3(self):
-		vertices = []
-		w = self.rect.width
-		h = self.rect.height
-		angle = self.rotation
-		r = math.sqrt(w * w / 4 + h * h / 4)
-	
-		theta1 = math.degrees(math.atan((h / 2) / (w / 2)))
-		theta2 = -theta1
-		theta3 = theta1 - 180
-		theta4 = 180 - theta1
-	
-		theta1 -= angle
-		theta2 -= angle
-		theta3 -= angle
-		theta4 -= angle
-		
-		vertices.append(pygame.math.Vector2(math.cos(math.radians(theta1)) * r + self.rect.centerx,
-											math.sin(math.radians(theta1)) * r + self.rect.centery))
-		vertices.append(pygame.math.Vector2(math.cos(math.radians(theta2)) * r + self.rect.centerx,
-											math.sin(math.radians(theta2)) * r + self.rect.centery))
-		vertices.append(pygame.math.Vector2(math.cos(math.radians(theta3)) * r + self.rect.centerx,
-											math.sin(math.radians(theta3)) * r + self.rect.centery))
-		vertices.append(pygame.math.Vector2(math.cos(math.radians(theta4)) * r + self.rect.centerx,
-											math.sin(math.radians(theta4)) * r + self.rect.centery))
-		
-		return vertices
-
 	def get_rotated_rect(self):
 		r = math.sqrt(self.rect.width * self.rect.width / 4 + self.rect.height * self.rect.height / 4)
 		
@@ -167,8 +87,4 @@ class Mob():
 		pygame.draw.circle(shared.screen, self.colour, self.circle.center, self.circle.radius, 1)
 		#  pygame.draw.rect(surface, color, rect, width)
 		pygame.draw.rect(shared.screen, shared.BLUE, self.rect, 1)
-		
-		#pygame.draw.polygon(shared.screen, shared.GREEN, self.get_rotated_rect_1(self.rect.centerx, self.rect.centery, self.rotation), 1)
-		#pygame.draw.polygon(shared.screen, shared.GREEN, self.get_rotated_rect_2(self.rect, self.rotation), 1)
-		#pygame.draw.polygon(shared.screen, shared.GREEN, self.get_rotated_rect_3(), 1)
 		pygame.draw.polygon(shared.screen, shared.GREEN, self.get_rotated_rect(), 1)
