@@ -5,4 +5,8 @@ This repository is based on the Shmup! game written in Python and Pygame on the 
 
 The code has been extensively re-factored to make it as close to the methods used in Love2D and Monogame as possible.
 It is a useful learning tool for those starting with game development, and unsure which framework to use.
-There will be a series of Youtube videos posted shortly.
+
+There is now a playlist on Youtube: https://www.youtube.com/playlist?list=PLE8GQEkUWuwGPi2WDiiQihG5nIZMecLHP
+
+The sounds folder cotains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart
+The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
