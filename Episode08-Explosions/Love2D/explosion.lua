@@ -11,7 +11,7 @@ function Explosion:new(spriteList, centre, scale)
 	self.image = spriteList[1] 		-- set to first image in the sequence
 	self.frame = 1
 	self.timePassed = 0
-	self.frameRate = 0.05
+	self.frameRate = 0.1
 	self.active = true
 	self.rect = Rectangle(centre[1] - (self.image:getWidth() / 2) * self.scale,
 						  centre[2] - (self.image:getHeight() / 2) * self.scale,
