@@ -10,3 +10,5 @@ There is now a playlist on Youtube: https://www.youtube.com/playlist?list=PLE8GQ
 
 The sounds folder cotains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart
 The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
+
+The explosions folder contains art attributed to Kenney, on opengameart.org, but no longer available.
