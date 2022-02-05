@@ -108,7 +108,7 @@ end
 local function updateExplosions(dt)
 	-- [[update all explosions. remove any non-active]]
 	for i = #explosionList, 1, -1 do						-- Go through the explosions in reverse order. :update(dt) returns true/false
-	if not explosionList[i]:update(dt) then					-- update. false if end of frames
+		if not explosionList[i]:update(dt) then					-- update. false if end of frames
 			table.remove(explosionList, i)					-- remove it from the table
 		end
 	end
@@ -202,10 +202,10 @@ function love.update(dt)
 		love.event.quit()
 	else
 		if Shared.gamestate == Shared.gamestates["play"] then
-			updateExplosions(dt)
 			if keyboardState.isDown("space") then			-- has the Player hit the space key to fire a bullet?
 				shoot()
 			end
+			updateExplosions(dt)
 			checkMobPlayerCollisions(keyboardState, dt)
 			checkMobBulletCollisions(dt)
 		end
