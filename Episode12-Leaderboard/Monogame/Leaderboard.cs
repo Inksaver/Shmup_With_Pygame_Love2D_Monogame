@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -10,8 +9,17 @@ namespace Shmup
 {
     internal class Leaderboard
     {
+        #region Private internal class
         private class ScoreData
         {
+            /// <summary>
+            /// This is a nested class for the sole use
+            /// of the Leaderboard class.
+            /// It provides an object with Name and Score properties
+            /// It has 2 constructors, one takes a string, the other 
+            /// a string and int.
+            /// There is one public method: GetScoreData
+            /// </summary>
             public int Score;
             public string Name;
             public ScoreData(string line)
@@ -27,39 +35,34 @@ namespace Shmup
             {
                 // eg line = "FRED;258"
                 string[] parts = line.Split(';');
-                Name = parts[0].Trim();                    // "FRED"
-                Score = Convert.ToInt32(parts[1].Trim());  // 258
+                Name = parts[0].Trim();                     // "FRED"
+                //Score = 0 if TryParse fails
+                int.TryParse(parts[1].Trim(), out Score);   // 258
             }
             public string GetScoreData(string dest)
             {
                 if (dest == "file")
                     return $"{Name};{Score}\n"; // "FRED;258\n"
                 else
-                    return $"{Name} : {Score}";
+                    return $"{Name} : {Score}"; // "FRED : 258"
             }
         }
-        public bool CurrentPlayerEntered = false;
-        private List<ScoreData> scoreList = new List<ScoreData>();
-        public string Name = "";
-        private float PosY = 80f;
-        private readonly int maxLines = 5;
-        private RectangleF rect = new RectangleF(50, Shared.HEIGHT * 0.85f, Shared.WIDTH - 100f, 24);
+        #endregion
+        #region Class variables
+        private bool currentPlayerEntered = false;                  // Has player entered a name?
+        private List<ScoreData> scoreList = new List<ScoreData>();  // list of ScoreData objects
+        private string name = "";                                   // player name
+        private float posY = 80f;                                   // y coordinate of leaderboard display
+        private readonly int maxLines = 5;                          // max no of lines to write/display
+        private RectangleF rectangle = new RectangleF(50, Shared.HEIGHT * 0.85f, Shared.WIDTH - 100f, 24);
+        #endregion
+        #region Constructor
         public Leaderboard()
         {
             PopulateScoreList();
         }
-        public void AddEntry()
-        {
-            if (Name != "")
-            {
-                CurrentPlayerEntered = true;
-                ScoreData scoreTemp = new ScoreData(Name, Shared.Score);
-                InsertData(scoreTemp);
-                Shared.InputText = "";
-                WriteScoreList();
-                PopulateScoreList();
-            }
-        }
+        #endregion
+        #region Private class methods
         private void AddScoreData(string line)
         {
             // create new scoreData object from line in text file
@@ -69,24 +72,25 @@ namespace Shmup
         }
         private void InsertData(ScoreData scoredata)
         {
-            int insertAt = scoreList.Count; // assume end of list
-            for (int i = 0; i < scoreList.Count; i++)
+            int insertAt = scoreList.Count;                 // assume end of list
+            for (int i = 0; i < scoreList.Count; i++)       // iterate list
             {
-                if (scoredata.Score >= scoreList[i].Score) // current score > listed
+                if (scoredata.Score >= scoreList[i].Score)  // current score > listed
                 {
-                    insertAt = i;
-                    break;
+                    insertAt = i;                           // re-define insertion point
+                    break;                                  // break out of loop
                 }
             }
             // if above loop did not find a greater score then insert at end of list
-            scoreList.Insert(insertAt, scoredata);
+            scoreList.Insert(insertAt, scoredata);          // add ScoreData object to list
         }
         private void PopulateScoreList()
         {
             /// Read file called HighScore.txt
-            scoreList.Clear();
+            scoreList.Clear();                              // remove all items in score_list
             if (File.Exists("Highscore.txt"))
             {
+                // fill list with scoreData objects in high -> low order
                 string[] lines = File.ReadAllLines("Highscore.txt");
                 foreach (string line in lines)
                 {
@@ -97,9 +101,10 @@ namespace Shmup
         }
         private void WriteScoreList()
         {
+            /// Write top 6 scores into text file, over-write original
             using (StreamWriter outputFile = new StreamWriter("Highscore.txt"))
             {
-                for(int i = 0;i < scoreList.Count; i++)
+                for (int i = 0; i < scoreList.Count; i++)
                 {
                     if (i > maxLines - 1) // max 5 lines to be written
                         break;
@@ -107,44 +112,72 @@ namespace Shmup
                 }
             }
         }
+        #endregion
+        #region Public Methods
+        public void AddEntry()
+        {
+            /// Called from ShmupMain TextInputHandler
+            /// leaderboard.AddEntry()
+            if (name != "")
+            {
+                currentPlayerEntered = true;
+                ScoreData scoreTemp = new ScoreData(name, Shared.Score);
+                InsertData(scoreTemp);
+                Shared.InputText = "";
+                WriteScoreList();
+                PopulateScoreList();
+            }
+        }
         public void Update(KeyboardState keyboardState)
         {
-            if (CurrentPlayerEntered)
+            if (currentPlayerEntered)                   // user has completed entering their name
             {
-                if (keyboardState.IsKeyDown(Keys.C))
+                if (keyboardState.IsKeyDown(Keys.C))    // c key pressed
                 {
                     Shared.GameState = Shared.GameStates["menu"];
-                    CurrentPlayerEntered = false;
+                    currentPlayerEntered = false;
                     Shared.InputText = "";
                 }
             }
             else
             {
-                Name = Shared.InputText;
+                name = Shared.InputText;                // This value is controlled by TextInputHandler in ShmupMain
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            Shared.DrawString(spriteBatch, "LEADERBOARD", "size50", Shared.WIDTH * 0.5f, 0 ,Color.Yellow,"centre");    // 'Leaderboard'
-            PosY = 80;
-            //foreach(ScoreData score in scoreList)
+            Shared.DrawString(  spriteBatch:spriteBatch, text:"LEADERBOARD",
+                                size:"size50", posX:Shared.WIDTH * 0.5f, posY:0,
+                                color:Color.Yellow, align:"centre");    // 'Leaderboard'
+            posY = 80;
             for(int i = 0; i < scoreList.Count; i++)
             {
                 if (i > maxLines - 1)
                     break;
-                Shared.DrawString(spriteBatch, scoreList[i].GetScoreData("display"), "size24", Shared.WIDTH * 0.5f, PosY, Color.White, "centre");
-                PosY += 30;
+                Shared.DrawString(  spriteBatch:spriteBatch, text:scoreList[i].GetScoreData("display"),
+                                    size:"size24", posX:Shared.WIDTH * 0.5f, posY:posY,
+                                    color:Color.White, align:"centre");
+                posY += 30;
             }
-            if(CurrentPlayerEntered)    // If got input from user
+            if(currentPlayerEntered)    // If got input from user
             {
-                Shared.DrawString(spriteBatch, "Press C to continue", "size18", 0, Shared.HEIGHT * 0.8f, Color.White, "centre");
+                Shared.DrawString(  spriteBatch:spriteBatch, text:"Press C to continue",
+                                    size:"size18", posX:0, posY:Shared.HEIGHT * 0.8f,
+                                    color:Color.White, align:"centre");
             }
             else
             {
-                Shared.DrawString(spriteBatch, "Type your name and press Enter", "size18", 0, Shared.HEIGHT * 0.8f, Color.White, "centre");
-                // displayBox(SpriteBatch spriteBatch, string text, string size, RectangleF rect, Color lineColour, Color backColour, Color textColour)
-                Shared.DisplayBox(spriteBatch, "NAME: " + Name, "size18", rect, Color.White, Shared.DARKBLUE, Color.White);
+                Shared.DrawString(  spriteBatch:spriteBatch, text:"Type your name and press Enter",
+                                    size:"size18", posX:0, posY:Shared.HEIGHT * 0.8f,
+                                    color:Color.White, align:"centre");
+
+                Shared.DisplayBox(  spriteBatch:spriteBatch, text:"NAME: " + name,
+                                    size:"size18", rect:rectangle,
+                                    lineColour:Color.White,
+                                    backColour:Shared.DARKBLUE,
+                                    textColour:Color.White);
             }
         }
+        #endregion
     }
 }
