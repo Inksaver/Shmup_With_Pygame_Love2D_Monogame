@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
@@ -12,9 +12,8 @@ namespace Shmup
     public class ShmupMain : Game
     {
         /// <summary>
-        /// Episode 14
-        /// https://www.youtube.com/watch?v=Z2K2Yttvr5g
-        /// Menu, Leaderboard
+        /// Episode 15
+        /// Leaderboard
         /// 
         /// Background music:
         /// Frozen Jam by tgfcoder <https://twitter.com/tgfcoder> licensed under CC-BY-3 
