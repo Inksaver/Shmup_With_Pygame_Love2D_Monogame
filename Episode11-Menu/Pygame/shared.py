@@ -42,27 +42,3 @@ def draw_text(screen:object, text:str, size:int, x:int, y:int, align:str = 'cent
 		text_rect.topright = (x, y)		
 	#blit the text to chosen surface
 	screen.blit(text_surface, text_rect)
-
-def display_box(screen:object, text:str, text_size:int, box_rect:object, fore_color:tuple = WHITE, back_colour:tuple = DARK_BLUE) -> None:
-	''' Print a text in a box '''
-	font = pygame.font.Font(None, text_size)
-	# pygame.draw.rect(surface, colour, rectangle, lineWidth) lineWidth 0 = fill (default) else line width
-	pygame.draw.rect(screen,
-					(back_colour),
-					(box_rect.x,
-					box_rect.y,
-					box_rect.width,
-					box_rect.height + 2),
-					0)
-	pygame.draw.rect(screen,
-					(fore_color),
-					(box_rect.x,
-					box_rect.y,
-					box_rect.width,
-					box_rect.height),
-					1)
-	# render(text, antialias, color, background=None) -> Surface
-	if len(text) != 0:
-		draw_text(screen, text, text_size, box_rect.x + 2, box_rect.y + 3, 'left')
-		#screen.blit(font.render(text, 1, WHITE, box_rect.x + 2, box_rect.y + 5))
-
