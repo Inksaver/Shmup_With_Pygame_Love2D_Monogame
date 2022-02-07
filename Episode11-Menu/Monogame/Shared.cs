@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -57,13 +57,6 @@ namespace Shmup
                                         effects: SpriteEffects.None,
                                         layerDepth: 0);
             }
-        }
-        public static void DisplayBox(SpriteBatch spriteBatch, string text, string size, RectangleF rect, Color lineColour, Color backColour, Color textColour)
-        {
-            spriteBatch.FillRectangle(rect.X, rect.Y, rect.Width, rect.Height + 2, backColour);
-            spriteBatch.DrawRectangle(rect, lineColour);
-            if (text != "")
-                DrawString(spriteBatch, text, size, rect.X + 1, rect.Y -1, textColour, "left");
         }
     }
 }
