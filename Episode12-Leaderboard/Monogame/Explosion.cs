@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using System.Collections.Generic;
@@ -17,15 +17,15 @@ namespace Shmup
         private float timePassed = 0;
         private float frameRate = 0.1f;
         private bool active;
-        private List<Texture2D> Images = new List<Texture2D>();
+        private List<Texture2D> images = new List<Texture2D>();
         #endregion
         #region Constructor
         public Explosion(List<Texture2D> imageList, Point2 cntr, float scl)
         {
-            Images = imageList;
+            images = imageList;
             centre = cntr;
             scale = scl;
-            image = Images[0];
+            image = images[0];
             active = true;
             rectangle = new RectangleF( centre.X - image.Width / 2 * scale,
                                         centre.Y - image.Height / 2 * scale,
@@ -42,11 +42,11 @@ namespace Shmup
             {
                 timePassed = 0;
                 frame += 1;
-                if(frame >= Images.Count)
+                if(frame >= images.Count)
                     active = false;
                 else
                 {
-                    image = Images[frame];
+                    image = images[frame];
                     rectangle = new RectangleF( centre.X - image.Width / 2 * scale,
                                                 centre.Y - image.Height / 2 * scale,
                                                 image.Width * scale,
