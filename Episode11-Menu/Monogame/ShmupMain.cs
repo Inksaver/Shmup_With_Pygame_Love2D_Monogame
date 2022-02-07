@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
@@ -398,7 +398,6 @@ namespace Shmup
             else if (Shared.GameState == Shared.GameStates["menu"])
             {
                 //Menu.Update(keyboardState);
-                //CheckBackgroundMusic(keyboardState);
             }
             else if (Shared.GameState == Shared.GameStates["play"])
             {
