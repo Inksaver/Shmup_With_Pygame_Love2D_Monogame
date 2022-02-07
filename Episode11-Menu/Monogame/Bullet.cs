@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using System;
@@ -39,8 +39,8 @@ namespace Shmup
                 rectangle.X = Player.Rectangle.X;
             else if (align == "right")
                 rectangle.X = Player.Rectangle.Right - bulletImg.Width;
-            radius = MathHelper.Min(Rectangle.Width, Rectangle.Height) / 2;
-            circle = new CircleF(Rectangle.Center, radius);
+            radius = MathHelper.Min(rectangle.Width, rectangle.Height) / 2;
+            circle = new CircleF(rectangle.Center, radius);
             speedY = 1000;
             if (Shared.Debug) speedY = speedY / 2;
             active = true; // Not Active allows removal of this object in main Update
@@ -50,8 +50,8 @@ namespace Shmup
         public bool Update(float dt)
         {
             rectangle.Y -= speedY * dt;
-            circle.Center.Y = Rectangle.Y;
-            if (Rectangle.Y < 0 - Rectangle.Height)
+            circle.Center.Y = rectangle.Y;
+            if (rectangle.Y < 0 - rectangle.Height)
                 active = false;
             return active;
         }
@@ -60,10 +60,10 @@ namespace Shmup
             if (Shared.Debug)
             {
                 spriteBatch.DrawCircle(circle: Circle, sides: 20, color: Color.Red, thickness: 1);
-                spriteBatch.DrawRectangle(Rectangle, Color.Yellow);
+                spriteBatch.DrawRectangle(rectangle, Color.Yellow);
             }
             else
-                spriteBatch.Draw(bulletImg, Rectangle.Position, Color.White);
+                spriteBatch.Draw(bulletImg, rectangle.Position, Color.White);
         }
         #endregion
     }
