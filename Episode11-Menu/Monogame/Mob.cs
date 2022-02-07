@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -44,7 +44,7 @@ namespace Shmup
         
         public void Reset()
         {
-            rectangle.X = random.Next(0, Shared.WIDTH - (int)Rectangle.Width);
+            rectangle.X = random.Next(0, Shared.WIDTH - (int)rectangle.Width);
             rectangle.Y = random.Next(-150, -50);
             speedY = random.Next(50, 300);
             speedX = random.Next(-50, 50);
@@ -53,7 +53,7 @@ namespace Shmup
                 speedY = random.Next(30, 100);
                 speedX = random.Next(-20, 20);
             }
-            circle.Center = Rectangle.Center;
+            circle.Center = rectangle.Center;
             rotation = 0f;
             rotationSpeed = (float)(random.Next(-5, 5) * 0.5) ;
         }
@@ -64,8 +64,8 @@ namespace Shmup
         }
         private List<Vector2> GetRotatedVertices()
         {
-            double r = Math.Sqrt(Rectangle.Width * Rectangle.Width / 4 + Rectangle.Height * Rectangle.Height / 4);
-            List<double> thetas = new List<double> { Math.Atan((Rectangle.Height / 2) / (Rectangle.Width / 2)) };
+            double r = Math.Sqrt(rectangle.Width * rectangle.Width / 4 + rectangle.Height * rectangle.Height / 4);
+            List<double> thetas = new List<double> { Math.Atan((rectangle.Height / 2) / (rectangle.Width / 2)) };
             thetas.AddRange(new double[] {-thetas[0] + rotation,
                                            thetas[0] - Math.PI + rotation,
                                            Math.PI - thetas[0] + rotation});
@@ -82,8 +82,8 @@ namespace Shmup
             Rotate(dt);
             rectangle.X += speedX * dt;
             rectangle.Y += speedY * dt;
-            circle.Center = Rectangle.Center;
-            if (Rectangle.Y > Shared.HEIGHT || Rectangle.X < 0 - Rectangle.Width || Rectangle.X > Shared.WIDTH)
+            circle.Center = rectangle.Center;
+            if (rectangle.Y > Shared.HEIGHT || rectangle.X < 0 - rectangle.Width || rectangle.X > Shared.WIDTH)
                 Reset();
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -91,7 +91,7 @@ namespace Shmup
             spriteBatch.Draw
             (
                 texture: meteorImg,
-                position: Rectangle.Center,
+                position: rectangle.Center,
                 sourceRectangle: null,
                 color: Color.White,
                 rotation: rotation,
@@ -102,9 +102,9 @@ namespace Shmup
             );
             if (Shared.Debug)
             {
-                spriteBatch.DrawCircle(circle: Circle, sides: 20, color: Color.Red, thickness: 1);
-                spriteBatch.DrawRectangle(Rectangle, Color.Blue);
-                spriteBatch.DrawPolygon(Rectangle.Center, GetRotatedVertices(), Shared.GREEN);
+                spriteBatch.DrawCircle(circle: circle, sides: 20, color: Color.Red, thickness: 1);
+                spriteBatch.DrawRectangle(rectangle, Color.Blue);
+                spriteBatch.DrawPolygon(rectangle.Center, GetRotatedVertices(), Shared.GREEN);
             }
         }
         #endregion
