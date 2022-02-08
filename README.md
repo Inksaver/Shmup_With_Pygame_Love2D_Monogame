@@ -9,7 +9,7 @@ It is a useful learning tool for those starting with game development, and unsur
 There is now a playlist on Youtube: https://www.youtube.com/playlist?list=PLE8GQEkUWuwGPi2WDiiQihG5nIZMecLHP
 The introduction video is located at https://www.youtube.com/watch?v=C2Z4YutJ4Ro
 
-The sounds folder cotains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart
+The sounds folder contains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart
 The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
 
 The explosions folder contains art attributed to Kenney, on opengameart.org, but no longer available.
