@@ -20,8 +20,9 @@ namespace Shmup
             /// a string and int.
             /// There is one public method: GetScoreData
             /// </summary>
-            public int Score;
-            public string Name;
+            private int score;
+            public int Score { get { return score; } }
+            public string Name { get; set; }
             public ScoreData(string line)
             {
                 DecodeLine(line);
@@ -29,7 +30,7 @@ namespace Shmup
             public ScoreData(string name, int score)
             {
                 Name = name.Trim();
-                Score = score;
+                this.score = score;
             }
             private void DecodeLine(string line)
             {
@@ -37,14 +38,14 @@ namespace Shmup
                 string[] parts = line.Split(';');
                 Name = parts[0].Trim();                     // "FRED"
                 //Score = 0 if TryParse fails
-                int.TryParse(parts[1].Trim(), out Score);   // 258
+                int.TryParse(parts[1].Trim(), out score);   // 258
             }
             public string GetScoreData(string dest)
             {
                 if (dest == "file")
-                    return $"{Name};{Score}\n"; // "FRED;258\n"
+                    return $"{Name};{score}\n"; // "FRED;258\n"
                 else
-                    return $"{Name} : {Score}"; // "FRED : 258"
+                    return $"{Name} : {score}"; // "FRED : 258"
             }
         }
         #endregion
@@ -155,24 +156,24 @@ namespace Shmup
                 if (i > maxLines - 1)
                     break;
                 Shared.DrawString(  spriteBatch:spriteBatch, text:scoreList[i].GetScoreData("display"),
-                                    size:"size24", posX:Shared.WIDTH * 0.5f, posY:posY,
+                                    size:"size22", posX:Shared.WIDTH * 0.5f, posY:posY,
                                     color:Color.White, align:"centre");
                 posY += 30;
             }
             if(currentPlayerEntered)    // If got input from user
             {
                 Shared.DrawString(  spriteBatch:spriteBatch, text:"Press C to continue",
-                                    size:"size18", posX:0, posY:Shared.HEIGHT * 0.8f,
+                                    size:"size16", posX:0, posY:Shared.HEIGHT * 0.8f,
                                     color:Color.White, align:"centre");
             }
             else
             {
                 Shared.DrawString(  spriteBatch:spriteBatch, text:"Type your name and press Enter",
-                                    size:"size18", posX:0, posY:Shared.HEIGHT * 0.8f,
+                                    size:"size16", posX:0, posY:Shared.HEIGHT * 0.8f,
                                     color:Color.White, align:"centre");
 
                 Shared.DisplayBox(  spriteBatch:spriteBatch, text:"NAME: " + name,
-                                    size:"size18", rect:rectangle,
+                                    size:"size16", rect:rectangle,
                                     lineColour:Color.White,
                                     backColour:Shared.DARKBLUE,
                                     textColour:Color.White);
