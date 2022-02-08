@@ -22,7 +22,7 @@ From the Kenney Space shooter you will need:
 
 Save the background image as starfield.png
 
-The sounds folder  contains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
+The sounds folder https://github.com/Inksaver/Shmup_With_Pygame_Love2D_Monogame/tree/main/sounds contains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
 
 Youtube videos:
 - Pygame    https://www.youtube.com/watch?v=OCnG8b8eU1Q
