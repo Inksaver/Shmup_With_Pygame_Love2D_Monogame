@@ -269,6 +269,9 @@ function love.keypressed(key)
 		if key == "x" then
 			Shared.debug = not Shared.debug
 		end
+		if key == "l" and Shared.debug then
+			Shared.gamestate = Shared.gamestates["leaderboard"]
+		end
 	end
 end
 
@@ -278,7 +281,7 @@ function love.load()
 		require("mobdebug").start()
 	end
 	print("To prevent this console window opening, delete the line: 't.console = true' in the conf.lua file")
-	love.window.setMode(Shared.WIDTH, Shared.HEIGHT, {display = 2} ) -- display on second monitor
+	--love.window.setMode(Shared.WIDTH, Shared.HEIGHT, {display = 2} ) -- display on second monitor
 	love.filesystem.setIdentity("ShmupHighscore")
 	local fileName = "Highscore.txt"
 	local exists = love.filesystem.getInfo(fileName)
