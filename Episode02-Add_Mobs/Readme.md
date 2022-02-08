@@ -1,4 +1,4 @@
-A green rectangle is drawn near the bottom of a 480 x 600 window, which can be moved left and right using arrow and WASD keys.
+A new Mob class is used to create 8 red rectangles, which fall from the top of the window. If they reach the bottom, or drift off the sides, they are reset back to a random position above the top of the window.
 
 Youtube videos for this episode:
 
