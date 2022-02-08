@@ -1,3 +1,5 @@
+There are now images used instead of coloured rectangles, including a starfield background, making the game much more interesting visually.
+
 This folder contains only the code. There are no image or sound files uploaded
 The images you will need can be obtained from
 Kenney Space Shooter Pack: https://opengameart.org/content/space-shooter-redux
