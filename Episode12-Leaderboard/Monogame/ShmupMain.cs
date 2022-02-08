@@ -81,6 +81,10 @@ namespace Shmup
                 {
                     Shared.Debug = !Shared.Debug;
                 }
+                if (pressedKey == Keys.L && Shared.Debug)
+                {
+                    Shared.GameState = Shared.GameStates["leaderboard"];
+                }
             }
             else if (Shared.GameState == Shared.GameStates["leaderboard"])
             {
