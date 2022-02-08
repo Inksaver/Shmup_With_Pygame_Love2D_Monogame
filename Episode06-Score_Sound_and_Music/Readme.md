@@ -25,6 +25,6 @@ Save the background image as starfield.png
 The sounds folder https://github.com/Inksaver/Shmup_With_Pygame_Love2D_Monogame/tree/main/sounds contains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
 
 Youtube videos:
-- Pygame    https://www.youtube.com/watch?v=OCnG8b8eU1Q
-- Love2D    https://www.youtube.com/watch?v=EDkeod6Ekd4
-- Monogame  https://www.youtube.com/watch?v=YpsDMLH9Zho
+- Pygame    https://www.youtube.com/watch?v=F9yo_0A9wxs
+- Love2D    https://www.youtube.com/watch?v=-vOOGo0rYDI
+- Monogame  https://www.youtube.com/watch?v=S3GIOunlMHg
