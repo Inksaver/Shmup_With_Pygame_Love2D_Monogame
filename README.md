@@ -7,6 +7,7 @@ The code has been extensively re-factored to make it as close to the methods use
 It is a useful learning tool for those starting with game development, and unsure which framework to use.
 
 There is now a playlist on Youtube: https://www.youtube.com/playlist?list=PLE8GQEkUWuwGPi2WDiiQihG5nIZMecLHP
+The introduction video is located at https://www.youtube.com/watch?v=C2Z4YutJ4Ro
 
 The sounds folder cotains sound effects that have either been created with https://www.bfxr.net/, or found on opengameart
 The background music is available from https://opengameart.org/content/frozen-jam-seamless-loop
