@@ -11,3 +11,8 @@ From the Kenney Space shooter you will need:
 - playerShip1_orange.png
 
 Save the background image as starfield.png
+
+Youtube videos:
+- Pygame    https://www.youtube.com/watch?v=HX-JjJbxeoQ
+- Love2D    https://www.youtube.com/watch?v=FjJVrQBE2Vw
+- Monogame  https://www.youtube.com/watch?v=oyT90cHMnMg
