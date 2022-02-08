@@ -1,3 +1,15 @@
+--[[
+The Monogame and Pygame versions needed a sub-class to create the 
+scoreData objects. In Lua this is achieved with a simple table which
+holds a list of other tables.
+Each of the sub-tables holds a name/score pair:
+scoreList =
+{
+	{name = "FRED", score = 1234},
+	{name = "INKSAVER", score = 3234}
+}
+]]
+
 local Class = require("lib.Class")
 local Leaderboard = Class:derive("Leaderboard")
 local Rectangle = require "lib.Rectangle"
@@ -7,37 +19,43 @@ require "lib/Utils" -- for split function
 function Leaderboard:addScoreData(line)
 	--[[ either "FRED;356" or {"FRED", 356} ]]
 	local data
+	-- line could be a string or table. Lua/Python functions cannot have overloads
+	-- so this method is the closest you can get
 	if type(line) == "string" then
 		data = line:upper():split(';')
 	else -- table
 		data = line
 	end
+	-- create a local table of name/score pairs
 	local newScore = {}
 	newScore.name = data[1]
 	newScore.score = tonumber(data[2])
 	local insertAt = #self.scoreList + 1 -- assume end of list
-	
+	-- calculate insert position high -> low
 	for i = 1, #self.scoreList do --needs at least 1 item
 		if newScore.score >= self.scoreList[i].score then 
 			insertAt = i
 			break
 		end
 	end
-
+	-- insert the newScore table into scoreList
 	table.insert(self.scoreList, insertAt, newScore)
 end
 
 function Leaderboard:new()
 	--[[ class constructor, no parameters]]
 	self.currentPlayerEntered = false
-	self.scoreList = {}
-	self.name = ""
+	self.scoreList = {} 		-- list of name/score sub-tables
+	self.name = ""				-- get player input and store here
 	self.ypos = 80
-	self:populateScoreList()
+	self:populateScoreList()	-- read existing highscore text file
 end
 
 function Leaderboard:populateScoreList()
-	-- C:\Users\<username>\AppData\Roaming\LOVE\ShmupHighscore\Highscore.txt
+	--[[
+	You have no choice where to save files. Default folder used:
+	C:\Users\<username>\AppData\Roaming\LOVE\ShmupHighscore\Highscore.txt
+	]]
 	self.scoreList = {} -- clear the scoreList
 	for line in love.filesystem.lines("Highscore.txt") do
 		self:addScoreData(line)
